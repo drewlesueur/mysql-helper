@@ -1,0 +1,17 @@
+{
+  "name": "simple-mysql",
+  "description": "Simple wrapper for felixge's node-mysql",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:drewlesueur/simple-mysql.git"
+  },
+  "author": "Drew LeSueur <drewalex@gmail.com> (http://twitter.com/drewlesueur)",
+  "main": "simple-mysql.js",
+  "directories": {
+    "lib": "."
+  },
+  "engines": {
+    "node": "*"
+  }
+}
