@@ -1,16 +1,18 @@
 _ = require "underscore"
-config = require "./config.coffee"
+config = require "./config"
 Client = require("mysql").Client
 drews = require("drews-mixins")
 _.mixin drews
 
-SimpleMySQL = require("simple-mysql").SimpleMySQL
+MySqlHelper = require("mysql-helper").MySqlHelper
 client = new Client()
 client.user = config.user
 client.password = config.password
+client.host = config.host
+console.log config.user, config.password, config.host
 client.connect() #is this sync or something?
 
-db = new SimpleMySQL client
+db = new MySqlHelper client
 
 
 useDb = (done) ->
@@ -26,8 +28,8 @@ createTable = (done) ->
       email varchar(255)
     )
   """, (err) ->
-  _.assertEqual err, null, "should not error creating db"
-  done()
+    _.assertEqual err, null, "should not error creating db"
+    done()
 
 insertRow = (done) ->
   db.insert "tests", {
@@ -69,6 +71,15 @@ queryUpdate = (done) ->
     _.assertEqual atercios, 1 
 
     done err
+
+
+dropTable = (done) ->
+  db.query """
+   DROP TABLE tests
+  """, (err) ->
+    _.assertEqual err, null, "should drop table"
+ 
+
   
 _.series [
   createTable
@@ -76,19 +87,7 @@ _.series [
   queryInsert
   updateRow
   queryUpdate
+  dropTable
 ], (err, results) ->
   console.log "tests done"
 
-
-
-
-
-
-
-
-
-
-
-  
-
-db.insert
