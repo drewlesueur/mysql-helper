@@ -1,5 +1,4 @@
 _ = require "underscore"
-console.log _
 config = require "./config"
 Client = require("mysql").Client
 require("drews-mixins") _
@@ -96,4 +95,5 @@ _.series [
     #{_.getAssertCount()} tests ran
     #{_.getPassCount()} tests passed
   """
+  client.end()
 
